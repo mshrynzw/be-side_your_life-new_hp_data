@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
-from common import set_common, set_log
+from src.common import set_common, set_log
 
 common_conf = set_common()
 TARGET_URL = common_conf['TARGET_URL']
