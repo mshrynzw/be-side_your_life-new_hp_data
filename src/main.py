@@ -100,12 +100,9 @@ def make_entry(day, month_name, summary, title, url_mp3, vol, year):
     return entry
 
 
-def check_date_title(dr, i_entry, title):
-    xpath = r'//div[@class="entry"][{}]/preceding-sibling::node()[4]'.format(i_entry)
+def is_last_entry(title):
     try:
-        elm = dr.find_element(By.XPATH, xpath)
-        tag_name = elm.tag_name
-        if tag_name == 'h2' or title[-2:] == '-1':
+        if title[-2:] == '-1':
             return True
         else:
             return False
@@ -139,7 +136,7 @@ def get_month(dr, ents, ur):
             try:
                 i_entry += 1
                 entry_id, title, url_mp3, summary = get_entry(dr, i_entry)
-                logger.info('Entry ID: ' + entry_id)
+                logger.info('Got entry ID: ' + entry_id)
             except NoSuchElementException as e:
                 logger.warning(e)
                 logger.info('Got ' + date)
@@ -150,7 +147,7 @@ def get_month(dr, ents, ur):
 
             ents[entry_id] = entry
 
-            if check_date_title(dr, i_entry, title):
+            if is_last_entry(title):
                 logger.info('Got ' + date)
                 break
             else:
