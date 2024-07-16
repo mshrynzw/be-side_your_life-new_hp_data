@@ -36,6 +36,8 @@ def get_months(dr):
 
         elm.click()
         urs.append(dr.current_url)
+        logger.info('Got month. ({})'.format(dr.current_url))
+        
         dr.get(TARGET_URL)
 
     logger.info('End.')
