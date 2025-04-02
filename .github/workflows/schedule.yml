@@ -17,10 +17,22 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y chromium-browser chromium-chromedriver
 
+      - name: gitをインストールする
+        run: |
+          sudo apt-get install -y git
+
+      - name: リポジトリをクローンする
+        run: |
+          git clone https://github.com/mshrynzw/be-side_your_life-new_hp.git
+
       - name: Pythonをセットアップ
         uses: actions/setup-python@v4
         with:
           python-version: "3.x"
+
+      - name: blogフォルダを作成する
+        run: |
+          mkdir ./blog/
 
       - name: 依存関係をインストール
         run: |
@@ -31,3 +43,15 @@ jobs:
         run: |
           python src/main.py
         working-directory: .
+
+      - name: ブログをコピーする
+        run: |
+          cp -r ./blog/* be-side_your_life-new_hp/blog/blog/
+
+      - name: 変更をコミットしてプッシュ
+        run: |
+          cd be-side_your_life-new_hp
+          git add blog/
+          git commit -m "Update blog content [skip ci]"
+          git push
+          
