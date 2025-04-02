@@ -56,5 +56,6 @@ jobs:
           git add data/blog/blog/*
           git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/mshrynzw/be-side_your_life-new_hp.git
           git push origin main
+          git status
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
