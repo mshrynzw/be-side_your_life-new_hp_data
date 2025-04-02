@@ -16,7 +16,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y chromium-browser chromium-chromedriver
-      - name: Install dependencies
 
       - name: Pythonをセットアップ
         uses: actions/setup-python@v4
