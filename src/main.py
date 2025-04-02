@@ -6,7 +6,6 @@ from selenium import webdriver
 from selenium.common import NoSuchElementException, InvalidSelectorException
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
 from common import set_common, set_log
@@ -205,7 +204,10 @@ if __name__ == '__main__':
     options.add_argument('--disable-blink-features=AutomationControlled')
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
     options.add_experimental_option('useAutomationExtension', False)
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+    
+    # システムにインストールされたChromeDriverを使用
+    service = ChromeService('/usr/bin/chromedriver')
+    driver = webdriver.Chrome(service=service, options=options)
     driver.get(TARGET_URL)
 
     try:
