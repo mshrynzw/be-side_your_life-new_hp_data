@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 def set_common():
-    with open('./src/conf/common.json', 'r') as f:
+    with open('./conf/common.json', 'r') as f:
         common_conf = json.load(f)
 
     return common_conf
