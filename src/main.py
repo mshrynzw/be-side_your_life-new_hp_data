@@ -178,11 +178,12 @@ if __name__ == '__main__':
 
     # blogフォルダ内を空にする。
     try:
-        shutil.rmtree(BLOG_DIR)
-    except FileNotFoundError as error:
+        if os.path.exists(BLOG_DIR):
+            shutil.rmtree(BLOG_DIR)
+        os.makedirs(BLOG_DIR, exist_ok=True)
+    except Exception as error:
         logger.warning(error)
-    finally:
-        os.mkdir(BLOG_DIR)
+        os.makedirs(BLOG_DIR, exist_ok=True)
 
     # HPにアクセスする。
     options = Options()
@@ -190,6 +191,20 @@ if __name__ == '__main__':
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--disable-gpu')
+    options.add_argument('--remote-debugging-port=9222')
+    options.add_argument('--disable-extensions')
+    options.add_argument('--disable-software-rasterizer')
+    options.add_argument('--disable-infobars')
+    options.add_argument('--window-size=1920,1080')
+    options.add_argument('--start-maximized')
+    options.add_argument('--ignore-certificate-errors')
+    options.add_argument('--allow-running-insecure-content')
+    options.add_argument('--disable-web-security')
+    options.add_argument('--disable-features=IsolateOrigins,site-per-process')
+    options.add_argument('--disable-site-isolation-trials')
+    options.add_argument('--disable-blink-features=AutomationControlled')
+    options.add_experimental_option('excludeSwitches', ['enable-automation'])
+    options.add_experimental_option('useAutomationExtension', False)
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
     driver.get(TARGET_URL)
 
