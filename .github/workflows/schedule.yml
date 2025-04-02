@@ -46,12 +46,12 @@ jobs:
 
       - name: ブログをコピーする
         run: |
-          cp -r ./blog/* be-side_your_life-new_hp/blog/blog/
+          cp -r ./blog/* be-side_your_life-new_hp/data/blog/blog/
 
       - name: 変更をコミットしてプッシュ
         run: |
           cd be-side_your_life-new_hp
-          git add blog/
+          git add data/blog/blog/*
           git commit -m "Update blog content [skip ci]"
           git push
           
