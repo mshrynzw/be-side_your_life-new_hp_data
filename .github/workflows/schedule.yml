@@ -51,7 +51,9 @@ jobs:
       - name: 変更をコミットしてプッシュ
         run: |
           cd be-side_your_life-new_hp
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
           git add data/blog/blog/*
           git commit -m "Update blog content [skip ci]"
-          git push
+          git push https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/mshrynzw/be-side_your_life-new_hp.git
           
