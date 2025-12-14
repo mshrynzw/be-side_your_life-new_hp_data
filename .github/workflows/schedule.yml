@@ -59,12 +59,16 @@ jobs:
           git add data/blog/blog/*
           echo "After git add:"
           git status
-          git commit -m "Update blog content [skip ci]"
-          echo "After git commit:"
-          git status
-          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/mshrynzw/be-side_your_life-new_hp.git
-          git push
-          echo "After git push:"
-          git status
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: Update blog entries - $(date '+%Y-%m-%d %H:%M:%S UTC') [skip ci]"
+            echo "After git commit:"
+            git status
+            git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/mshrynzw/be-side_your_life-new_hp.git
+            git push
+            echo "After git push:"
+            git status
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
